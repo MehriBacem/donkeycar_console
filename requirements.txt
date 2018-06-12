@@ -3,4 +3,5 @@ apscheduler
 boto3
 boto
 uwsgi
-
+requests
+simplejson
