@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your Ras
 
 
 ### Running as a service
-- add your localhost to  ALLOWED_HOSTS  in "donkeycar_console/donkeycar_console/settings.py"
+- add your host to  ALLOWED_HOSTS  in "donkeycar_console/donkeycar_console/settings.py"
 - sudo apt-get update
 - sudo apt-get install supervisor
 - create a file "donkeycar_console.conf" in /etc/supervisor/conf.d/ and copy this:
@@ -31,4 +31,4 @@ These instructions will get you a copy of the project up and running on your Ras
 
 - sudo service supervisor start  
 - sudo reboot   
-- open the console with "<localhost>:8000" (e.g  d2.local:8000)
+- open the console with "host:8000" (e.g  d2.local:8000)
