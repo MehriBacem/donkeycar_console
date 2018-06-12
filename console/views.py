@@ -2,17 +2,10 @@ from django.shortcuts import render
 
 # Django
 from django.shortcuts import render
-from django.contrib.auth import logout
 from django.template import RequestContext, loader
-from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-import oauth2 as oauth
 import simplejson as json
 import requests
 from .models import remarks
