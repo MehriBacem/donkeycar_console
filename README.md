@@ -7,7 +7,7 @@ These instructions will get you a copy of the project up and running on your Ras
 ### Installing
 
 - git clone https://github.com/MehriBacem/donkeycar_console.git
-- cd donkeycar-console/
+- cd donkeycar_console/
 - pip install -r requirements.txt
 
 
