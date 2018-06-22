@@ -82,8 +82,13 @@ def drive(request):
            except:
                controller_mode = ''
 
-           proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive",controller_mode])
-          # proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive"])
+           if controller_mode != '':
+
+              proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive",controller_mode])
+           else:
+              proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive"])
+
+       # proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive"])
 
        elif 'stop' in request.POST:
            try:
@@ -276,7 +281,7 @@ def save_controller_settings(request):
         aws_key_id = ''
     if request.method == "POST":
         training_controller = request.POST.get('training_controller')
-        autopilot_controller = request.POST.get('autopilot_controller')
+        autopilot_controller = ''
 
         if training_controller != None or autopilot_controller != None:
             try:
@@ -689,9 +694,8 @@ def autopilot(request):
            controller_mode=''
 
         global autopilot_proc
-        autopilot_proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive", "--model", "/home/pi/d2/models/" + job_name,controller_mode])
 
-
+        autopilot_proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive", "--model", "/home/pi/d2/models/" + job_name])
         return HttpResponseRedirect('/jobs/')
 
         #os.system('python ~/d2/manage.py drive --model ~/d2/models/' + model_name)

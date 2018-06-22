@@ -243,7 +243,7 @@ for (i = 0; i < res.length - 1; i++) {
     $.get('/get_car_status_autopilot/', function(data){
             $('#state').html("<h1>"+data +"</h1>")
             if (data == "Autopilot"){
-                       $('#stop_autopilot').html(' <a href="/proc/kill/" class="btn btn-primary a-btn-slide-text"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span>    <span><strong> Stop  Autopilot</strong></span></a>')
+                       $('#stop_autopilot').html(' <a href="/proc/kill/" class="btn btn-primary a-btn-slide-text"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span>    <span><strong> Stop  Autopilot</strong></span></a> <a href="http://d2.local:8887/" target="_blank" class="btn btn-primary a-btn-slide-text"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span>    <span><strong> Go To Console</strong></span></a>')
             }else{
                                    $('#stop_autopilot').html('')
 
