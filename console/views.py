@@ -71,6 +71,11 @@ def index(request):
 
 def drive(request):
     if verify() == True :
+       try:
+            Local_directory = local_directory.objects.latest('id')
+            updated_local_directory_name = Local_directory.name
+       except:
+            updated_local_directory_name = ''
        print(request.POST)
        global proc
        print("hey")
@@ -84,9 +89,9 @@ def drive(request):
 
            if controller_mode != '':
 
-              proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive",controller_mode])
+              proc = subprocess.Popen(["python", "/home/pi/"+updated_local_directory_name+"/manage.py", "drive",controller_mode])
            else:
-              proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive"])
+              proc = subprocess.Popen(["python", "/home/pi/"+updated_local_directory_name+"/manage.py", "drive"])
 
        # proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive"])
 
@@ -108,24 +113,66 @@ def kill_proc(request):
         print("no autopilot ptoc")
     return HttpResponseRedirect('/jobs/')
 
+
+
+def save_local_directory(request):
+        message = ""
+        updated_repo = ""
+        try:
+            credential = credentials.objects.latest('id')
+            aws_key_id = credential.aws_access_key_id
+        except:
+            aws_key_id = ''
+        if request.method == "POST":
+            local_directory_name = request.POST.get('local_directory')
+
+            if local_directory_name != None:
+
+                try:
+                    exist_local_directory= local_directory.objects.latest('id')
+                    local_directory.objects.filter(id=exist_local_directory.id).update(name=local_directory_name)
+
+                    message = "Local Directory  has been updated"
+
+                except:
+                    new_local_directory = local_directory(name=local_directory_name)
+                    new_local_directory.save()
+                    message = "Local Directory has been saved"
+        try:
+            updated_name = github.objects.latest('id')
+            updated_repo_name = updated_name.name
+            updated_extension = updated_name.extension
+        except:
+            updated_repo_name = ''
+            updated_extension = ''
+        try:
+            updated_controller = controller.objects.latest('id')
+            updated_training_controller = updated_controller.training
+        except:
+            updated_training_controller = ''
+        try:
+            updated_local_directory = local_directory.objects.latest('id')
+            updated_local_directory_name = updated_local_directory.name
+        except:
+            updated_local_directory_name = ''
+
+        template = loader.get_template('console/local_directory.html')
+        return HttpResponse(template.render({'status': message,'local_directory': updated_local_directory_name, 'training_controller': updated_training_controller,
+                                             'updated_extension': updated_extension, 'updated_repo': updated_repo_name,
+                                             'AWS_KEY': aws_key_id}, request))
+
+
 def verify():
     count = credentials.objects.filter().count()
-    if (count != 0):
+    count1 = github.objects.filter().count()
+
+    if (count != 0 and count1 != 0):
         result = credentials.objects.raw('SELECT * FROM console_credentials LIMIT 1;')
         global AWS_ACCESS_KEY_ID
         global AWS_SECRET_ACCESS_KEY
         AWS_ACCESS_KEY_ID = result[0].aws_access_key_id
         AWS_SECRET_ACCESS_KEY = result[0].aws_secret_access_key
 
-        conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
-                            aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-
-        try:
-            bucket = conn.get_bucket(AWS_ACCESS_KEY_ID.lower())
-
-        except Exception as e:
-            print("error", e)
-            return False
 
         return True
     else:
@@ -135,15 +182,20 @@ def verify():
 
 def display_data_folders(request):
     if verify() == True:
+        try:
+            Local_directory = local_directory.objects.latest('id')
+            updated_local_directory_name = Local_directory.name
+        except:
+            updated_local_directory_name = ''
 
-        list_data = os.popen('ls ~/d2/data/').read()
+        list_data = os.popen('ls ~/'+updated_local_directory_name+'/data/').read()
 
         directories = list_data.split()
         dataFolders = []
         print(directories)
         for dir in directories:
 
-            direcPath = os.popen('echo ~/d2/data/' + dir).read()
+            direcPath = os.popen('echo ~/'+updated_local_directory_name+'/data/' + dir).read()
             direcPath = direcPath.split()
 
             if os.path.isdir(direcPath[0]):
@@ -152,15 +204,15 @@ def display_data_folders(request):
                     print('it exists')
                 else:
                     with open(direcPath[0] + '/donkeycar-console.json', 'w') as outfile:
-                        noImages = os.popen('ls -l ~/d2/data/' + dir + ' | grep .jpg | wc -l').read()
+                        noImages = os.popen('ls -l ~/'+updated_local_directory_name+'/data/' + dir + ' | grep .jpg | wc -l').read()
                         noImages.strip()
                         print(noImages)
                         noImages = int(noImages)
 
                         year = os.popen('date +"%Y"').read()
-                        time = os.popen("ls -ldc ~/d2/data/" + dir + " | awk  '{print $8}'").read()
-                        month = os.popen("ls -ldc ~/d2/data/" + dir + " | awk  '{print $6}'").read()
-                        day = os.popen("ls -ldc ~/d2/data/" + dir + " | awk  '{print $7}'").read()
+                        time = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $8}'").read()
+                        month = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $6}'").read()
+                        day = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $7}'").read()
                         date = year + " " + month + " " + day + " " + time
                         d = datetime.strptime(date, '%Y\n %b\n %d\n %H:%M\n')
                         d = d.strftime('%Y-%m-%d %H:%M')
@@ -182,10 +234,15 @@ def display_data_folders(request):
         return render(request, 'console/credentials.html', {})
 
 def getfiles(request):
+        try:
+            Local_directory = local_directory.objects.latest('id')
+            updated_local_directory_name = Local_directory.name
+        except:
+            updated_local_directory_name = ''
         result = request.GET.get('dir', '')
         print(result)
         zip_io = io.BytesIO()
-        direcPath = os.popen('echo ~/d2/data/').read()
+        direcPath = os.popen('echo ~/'+updated_local_directory_name+'/data/').read()
         direcPath = direcPath.split()
         with zipfile.ZipFile(zip_io, mode='w', compression=zipfile.ZIP_DEFLATED) as backup_zip:
             for f in os.listdir(direcPath[0] + result):
@@ -198,16 +255,26 @@ def getfiles(request):
 
 def delete_data(request):
     name= request.GET.get('name', '')
-    os.system('sudo rm -r ~/d2/data/'+name)
+    try:
+        Local_directory = local_directory.objects.latest('id')
+        updated_local_directory_name = Local_directory.name
+    except:
+        updated_local_directory_name = ''
+    os.system('sudo rm -r ~/'+updated_local_directory_name+'/data/'+name)
     return HttpResponseRedirect('/data/')
 
 def delete_data_folder_comment(request):
 
     comment= request.GET.get('comment', '')
     name= request.GET.get('name', '')
+    try:
+        Local_directory = local_directory.objects.latest('id')
+        updated_local_directory_name = Local_directory.name
+    except:
+        updated_local_directory_name = ''
 
     if (id and name):
-        direcPath = os.popen('echo ~/d2/data/' + name).read()
+        direcPath = os.popen('echo ~/'+updated_local_directory_name+'/data/' + name).read()
         direcPath = direcPath.split()
         with open(direcPath[0] + '/donkeycar-console.json', 'r') as outfile:
             data = json.load(outfile)
@@ -223,10 +290,12 @@ def add_data_folder_comment(request):
     data_name = request.POST['name']
     print(data_name)
     data_comment = request.POST['var']
-    print(data_comment)
-
-    print("ehyyyy")
-    direcPath = os.popen('echo ~/d2/data/' + data_name).read()
+    try:
+        Local_directory = local_directory.objects.latest('id')
+        updated_local_directory_name = Local_directory.name
+    except:
+        updated_local_directory_name = ''
+    direcPath = os.popen('echo ~/'+updated_local_directory_name+'/data/' + data_name).read()
     direcPath = direcPath.split()
     with open(direcPath[0] + '/donkeycar-console.json', 'r') as outfile:
             data = json.load(outfile)
@@ -281,29 +350,17 @@ def save_controller_settings(request):
         aws_key_id = ''
     if request.method == "POST":
         training_controller = request.POST.get('training_controller')
-        autopilot_controller = ''
 
-        if training_controller != None or autopilot_controller != None:
+        if training_controller != None :
             try:
                 exist_controller = controller.objects.latest('id')
-                if training_controller != None and autopilot_controller != None:
-                    controller.objects.filter(id=exist_controller.id).update(training=training_controller)
-                    controller.objects.filter(id=exist_controller.id).update(autopilot=autopilot_controller)
-
-
-                elif autopilot_controller != None and training_controller == None:
-                   controller.objects.filter(id=exist_controller.id).update(autopilot=autopilot_controller)
-                else:
-                   controller.objects.filter(id=exist_controller.id).update(training=training_controller)
-
-
+                controller.objects.filter(id=exist_controller.id).update(training=training_controller)
 
                 message = "Controller settings have been updated"
             except Exception as e:
 
                 new_controller = controller(
-                    training=training_controller,
-                    autopilot=autopilot_controller)
+                    training=training_controller)
                 new_controller.save()
                 message = "Controller settings have been updated"
 
@@ -320,12 +377,17 @@ def save_controller_settings(request):
     try:
         updated_controller = controller.objects.latest('id')
         updated_training_controller = updated_controller.training
-        updated_autopilot_controller = updated_controller.autopilot
     except:
         updated_training_controller = ''
-        updated_autopilot_controller = ''
+
+    try:
+        updated_local_directory = local_directory.objects.latest('id')
+        updated_local_directory_name = updated_local_directory.name
+    except:
+        updated_local_directory_name = ''
+
     template = loader.get_template('console/controller.html')
-    return HttpResponse(template.render({'controller_message': message,'training_controller':updated_training_controller,'autopilot_controller':updated_autopilot_controller,'updated_extension':updated_extension,'updated_repo':updated_repo_name,'AWS_KEY':aws_key_id}, request))
+    return HttpResponse(template.render({'local_directory': updated_local_directory_name,'controller_message': message,'training_controller':updated_training_controller,'updated_extension':updated_extension,'updated_repo':updated_repo_name,'AWS_KEY':aws_key_id}, request))
 
 
 
@@ -381,9 +443,6 @@ def save_credentials(request):
                             aws_access_key_id=UPDATED_AWS_ACCESS_KEY_ID,
                             aws_secret_access_key=UPDATED_AWS_SECRET_ACCESS_KEY)
                         credential.save()
-                        github_repo = github(
-                            name='https://github.com/wroscoe/donkey')
-                        github_repo.save()
                         message = "Credentials have been updated !"
 
 
@@ -418,15 +477,19 @@ def save_credentials(request):
     try:
         updated_controller = controller.objects.latest('id')
         updated_training_controller = updated_controller.training
-        updated_autopilot_controller = updated_controller.autopilot
     except:
         updated_training_controller = ''
-        updated_autopilot_controller = ''
+
+    try:
+        updated_local_directory = local_directory.objects.latest('id')
+        updated_local_directory_name = updated_local_directory.name
+    except:
+        updated_local_directory_name = ''
 
 
 
     template = loader.get_template('console/credentials.html')
-    return HttpResponse(template.render({'message': message,'training_controller':updated_training_controller,'autopilot_controller':updated_autopilot_controller, 'AWS_KEY': aws_key_id,'updated_repo':updated_repo_name,'updated_extension':updated_extension}, request))
+    return HttpResponse(template.render({'message': message,'local_directory': updated_local_directory_name,'training_controller':updated_training_controller,'AWS_KEY': aws_key_id,'updated_repo':updated_repo_name,'updated_extension':updated_extension}, request))
 
 
 
@@ -450,11 +513,16 @@ def save_github_repo(request):
         result = os.system('git ls-remote  ' + repo)
         if result == 0:
             if repo != None:
-                exist_repo = github.objects.latest('id')
-                github.objects.filter(id=exist_repo.id).update(name=repo)
-                github.objects.filter(id=exist_repo.id).update(extension=extension)
+                try:
+                   exist_repo = github.objects.latest('id')
+                   github.objects.filter(id=exist_repo.id).update(name=repo)
+                   github.objects.filter(id=exist_repo.id).update(extension=extension)
+                   message = "Github Repository has been updated"
+                except:
+                   new_github = github(name=repo,extension=extension)
+                   new_github.save()
+                   message = "Github Repository has been updated"
 
-                message = "Github Repository has been updated"
 
         else:
             message = "Please enter a git repository"
@@ -468,14 +536,18 @@ def save_github_repo(request):
     try:
         updated_controller = controller.objects.latest('id')
         updated_training_controller = updated_controller.training
-        updated_autopilot_controller = updated_controller.autopilot
     except:
         updated_training_controller = ''
-        updated_autopilot_controller = ''
+
+    try:
+        updated_local_directory = local_directory.objects.latest('id')
+        updated_local_directory_name = updated_local_directory.name
+    except:
+        updated_local_directory_name = ''
 
 
     template = loader.get_template('console/github.html')
-    return HttpResponse(template.render({'status': message,'training_controller':updated_training_controller,'autopilot_controller':updated_autopilot_controller,'updated_extension':updated_extension,'updated_repo':updated_repo_name,'AWS_KEY':aws_key_id}, request))
+    return HttpResponse(template.render({'status': message,'local_directory': updated_local_directory_name,'training_controller':updated_training_controller,'updated_extension':updated_extension,'updated_repo':updated_repo_name,'AWS_KEY':aws_key_id}, request))
 
 
 def delete_remark(request):
@@ -622,7 +694,12 @@ def convert_timedelta(duration):
 def copy_local(request):
     if verify() == True:
        id = request.GET.get('id', '')
-       path = os.popen('echo ~/d2/models/').read()
+       try:
+           Local_directory = local_directory.objects.latest('id')
+           updated_local_directory_name = Local_directory.name
+       except:
+           updated_local_directory_name = ''
+       path = os.popen('echo ~/'+updated_local_directory_name+'/models/').read()
        path = path.split()
        try:
            updated_repo = github.objects.latest('id')
@@ -657,7 +734,13 @@ def copy_local(request):
 def autopilot(request):
     if verify() == True:
         id = request.GET.get('id', '')
-        path = os.popen('echo ~/d2/models/').read()
+        try:
+            Local_directory = local_directory.objects.latest('id')
+            updated_local_directory_name = Local_directory.name
+        except:
+            updated_local_directory_name = ''
+
+        path = os.popen('echo ~/'+updated_local_directory_name+'/models/').read()
         path = path.split()
         try:
             updated_repo = github.objects.latest('id')
@@ -695,7 +778,7 @@ def autopilot(request):
 
         global autopilot_proc
 
-        autopilot_proc = subprocess.Popen(["python", "/home/pi/d2/manage.py", "drive", "--model", "/home/pi/d2/models/" + job_name])
+        autopilot_proc = subprocess.Popen(["python", "/home/pi/"+updated_local_directory_name+"/manage.py", "drive", "--model", "/home/pi/"+updated_local_directory_name+"/models/" + job_name])
         return HttpResponseRedirect('/jobs/')
 
         #os.system('python ~/d2/manage.py drive --model ~/d2/models/' + model_name)
@@ -751,7 +834,11 @@ def home(request):
         return render(request, 'console/credentials.html', {})
 def create_job(request):
     if verify() == True:
-
+        try:
+            Local_directory = local_directory.objects.latest('id')
+            updated_local_directory_name = Local_directory.name
+        except:
+            updated_local_directory_name = ''
         choices = ['t2.micro', 't2.medium', 'g2.2xlarge', 'g2.8xlarge', 'p2.xlarge', 'p3.2xlarge', 'p3.8xlarge']
         errorMessage = ""
         conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -803,7 +890,7 @@ def create_job(request):
                     instance_max=max_time)
                 job.save()
                 selected_data = ""
-                dataPath = os.popen('echo ~/d2/data/').read()
+                dataPath = os.popen('echo ~/'+updated_local_directory_name+'/data/').read()
                 dataPath = dataPath.split()
 
                 for dir in checked_data:
@@ -876,13 +963,13 @@ def create_job(request):
                     os.system('rm -r  job_' + str(job.id) + '.tar.gz ')
                     return HttpResponseRedirect('/jobs/success/')
 
-        list_data = os.popen('ls ~/d2/data/').read()
+        list_data = os.popen('ls ~/'+updated_local_directory_name+'/data/').read()
         directories = list_data.split()
         dataFolders = []
         print(directories)
         for dir in directories:
 
-            direcPath = os.popen('echo ~/d2/data/' + dir).read()
+            direcPath = os.popen('echo ~/'+updated_local_directory_name+'/data/' + dir).read()
             direcPath = direcPath.split()
 
             if os.path.isdir(direcPath[0]):
@@ -891,15 +978,15 @@ def create_job(request):
                     print('it exists')
                 else:
                     with open(direcPath[0] + '/donkeycar-console.json', 'w') as outfile:
-                        noImages = os.popen('ls -l ~/d2/data/' + dir + ' | grep .jpg | wc -l').read()
+                        noImages = os.popen('ls -l ~/'+updated_local_directory_name+'/data/' + dir + ' | grep .jpg | wc -l').read()
                         noImages.strip()
                         print(noImages)
                         noImages = int(noImages)
 
                         year = os.popen('date +"%Y"').read()
-                        time = os.popen("ls -ldc ~/d2/data/" + dir + " | awk  '{print $8}'").read()
-                        month = os.popen("ls -ldc ~/d2/data/" + dir + " | awk  '{print $6}'").read()
-                        day = os.popen("ls -ldc ~/d2/data/" + dir + " | awk  '{print $7}'").read()
+                        time = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $8}'").read()
+                        month = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $6}'").read()
+                        day = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $7}'").read()
                         date = year + " " + month + " " + day + " " + time
                         d = datetime.strptime(date, '%Y\n %b\n %d\n %H:%M\n')
                         d = d.strftime('%Y-%m-%d %H:%M')

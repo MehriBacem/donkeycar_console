@@ -25,6 +25,8 @@ class Jobs(models.Model):
     instance_id = models.CharField(max_length=200, default="0")
     price = models.CharField(max_length=30, default="N/A")
 
+class local_directory(models.Model):
+    name = models.CharField(max_length=256)
 
 class credentials(models.Model):
     aws_access_key_id = models.CharField(max_length=256)
@@ -32,7 +34,6 @@ class credentials(models.Model):
 
 class controller(models.Model):
     training = models.CharField(max_length=10,blank=True)
-    autopilot = models.CharField(max_length=10,blank=True)
 
 
 
