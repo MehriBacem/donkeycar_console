@@ -73,16 +73,12 @@ label{
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
-          {% if user.is_authenticated %}
 
-              {%  if user.first_name != '' %}
-                  <img src="{{user.first_name}}" class="user-image" >
-                                  {% endif %}
+                  <img src=""  id="user_image" class="user-image" >
 
-         <span class="hidden-xs">   {{user}} </span>
+         <span class="hidden-xs" id="id_user">    </span>
 
 
-                                  {% endif %}
 
 
             </a>
@@ -90,10 +86,8 @@ label{
               <!-- User image -->
 
               <li class="user-header">
-                                {%  if user.first_name != '' %}
 
-                <img src="{{user.first_name}}" class="img-circle" >
-                                                    {% endif %}
+                <img src="" id="user_image1"class="img-circle" >
 
               </li>
               <!-- Menu Body -->
@@ -237,6 +231,25 @@ for (i = 0; i < res.length - 1; i++) {
     });
 });
 </script>
+<script>
+$(document).ready(function() {
+
+
+        $.get('/get_user_info/', function(data){
+
+var res = data.split("&&");
+
+console.log(res)
+              name = res[0]
+              profile_url = res[1]
+              document.getElementById("id_user").innerHTML = name
+              document.getElementById("user_image").src = profile_url
+              document.getElementById("user_image1").src = profile_url
+
+
+        });
+    })
+</script>
    <script>
 
     window.setInterval(function(){
@@ -257,6 +270,27 @@ for (i = 0; i < res.length - 1; i++) {
 
 },5000);
 </script>
+   <script>
+
+    window.setInterval(function(){
+    $.get('/get_car_status_autopilot/', function(data){
+            $('#state').html("<h1>"+data +"</h1>")
+            if (data == "Autopilot"){
+                       $('#stop_autopilot').html(' <a href="/proc/kill/" class="btn btn-primary a-btn-slide-text"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span>    <span><strong> Stop  Autopilot</strong></span></a> <a href="http://d2.local:8887/" target="_blank" class="btn btn-primary a-btn-slide-text"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span>    <span><strong> Go To Console</strong></span></a>')
+            }else{
+                                   $('#stop_autopilot').html('')
+
+            }
+
+
+})
+   $.get('/get_car_status_training/', function(data){
+            $('#state').html("<h1>"+data +"</h1>")
+})
+
+},5000);
+</script>
+
 
 
 <!-- DataTables -->
