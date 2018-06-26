@@ -9,6 +9,8 @@ import zipfile
 from django.http import HttpResponse
 import io
 from console.models import *
+from console.views import myuser_login_required
+
 
 
 
@@ -35,7 +37,7 @@ def credentials_check(f):
 
 
 
-
+@myuser_login_required
 @credentials_check
 def display_data_folders(request):
         try:
@@ -85,7 +87,7 @@ def display_data_folders(request):
         }
 
         return render(request, 'console/data_folders.html', context)
-
+@myuser_login_required
 @credentials_check
 def getfiles(request):
         try:
@@ -106,7 +108,7 @@ def getfiles(request):
         response['Content-Disposition'] = 'attachment; filename=%s' % result + ".zip"
         response['Content-Length'] = zip_io.tell()
         return response
-
+@myuser_login_required
 def delete_data(request):
     name= request.GET.get('name', '')
     try:
@@ -118,7 +120,7 @@ def delete_data(request):
     return HttpResponseRedirect('/data/')
 
 
-
+@myuser_login_required
 def delete_empty_folders(request):
     try:
         Local_directory = local_directory.objects.latest('id')
@@ -148,7 +150,7 @@ def delete_empty_folders(request):
 
     return HttpResponseRedirect('/data/')
 
-
+@myuser_login_required
 def delete_data_folder_comment(request):
 
     comment= request.GET.get('comment', '')
@@ -169,7 +171,7 @@ def delete_data_folder_comment(request):
             json.dump(data, writefile)
 
     return HttpResponseRedirect('/data/')
-
+@myuser_login_required
 @credentials_check
 def add_data_folder_comment(request):
 

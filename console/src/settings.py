@@ -6,8 +6,9 @@ from django.http import HttpResponse
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 from console.models import *
+from console.views import myuser_login_required
 
-
+@myuser_login_required
 def save_local_directory(request):
     message = ""
     updated_repo = ""
@@ -55,7 +56,7 @@ def save_local_directory(request):
                                          'updated_extension': updated_extension, 'updated_repo': updated_repo_name,
                                          'AWS_KEY': aws_key_id}, request))
 
-
+@myuser_login_required
 def save_credentials(request):
     message = ""
     if request.method == "POST":
@@ -139,7 +140,7 @@ def save_credentials(request):
 
 
 
-
+@myuser_login_required
 def save_github_repo(request):
     message = ""
     updated_repo = ""
@@ -195,7 +196,7 @@ def save_github_repo(request):
 
 
 
-
+@myuser_login_required
 def save_controller_settings(request):
     message = ""
     updated_repo = ""

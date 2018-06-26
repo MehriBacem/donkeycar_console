@@ -8,21 +8,16 @@ from urllib.parse import urlparse
 import os.path
 from django.utils.dateparse import parse_datetime
 from datetime import timedelta
-from datetime import datetime
-from django.urls import reverse
 from django.template import loader
 import pytz
 import boto3
 import os
-import zipfile
-
 from django.http import HttpResponse
-import io
-from django import template
-
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 from console.models import *
+from console.views import myuser_login_required
+
 
 
 def credentials_check(f):
@@ -44,16 +39,21 @@ def credentials_check(f):
     wrap.__name__ = f.__name__
     return wrap
 
+
+
+@myuser_login_required
 @credentials_check
 def delete_remark(request):
     id= request.GET.get('id', '')
     remarks.objects.filter(id=id).delete()
     return HttpResponseRedirect('/jobs/')
+
+
 def delete_job(request):
     id= request.GET.get('id', '')
     Jobs.objects.filter(id=id).delete()
     return HttpResponseRedirect('/jobs/')
-
+@myuser_login_required
 @credentials_check
 def add_remark(request):
 
@@ -66,7 +66,7 @@ def add_remark(request):
     job = Jobs.objects.get(id=job_id)
     job.Comments.add(remark)
     return HttpResponse('success')
-
+@myuser_login_required
 @credentials_check
 def verify_logs(state,id):
 
@@ -92,7 +92,7 @@ def verify_logs(state,id):
                     Jobs.objects.filter(id=id).update(commands_log_url=url1_to_download)
                     object_acl = s3.ObjectAcl(AWS_ACCESS_KEY_ID.lower(), key.name)
                     response1 = object_acl.put(ACL='public-read')
-
+@myuser_login_required
 @credentials_check
 def cancel_request(request):
        client = boto3.client('ec2', aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -108,7 +108,7 @@ def cancel_request(request):
        Jobs.objects.filter(id=id).update(duration='0')
        return HttpResponseRedirect('/jobs/')
 
-
+@myuser_login_required
 @credentials_check
 def update_status_by_id(request):
         client = boto3.client('ec2', aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -184,6 +184,7 @@ def convert_timedelta(duration):
     minutes = (seconds % 3600) // 60
     seconds = (seconds % 60)
     return hours, minutes, seconds
+@myuser_login_required
 @credentials_check
 def copy_local(request):
        id = request.GET.get('id', '')
@@ -224,6 +225,7 @@ def copy_local(request):
 
 
 
+@myuser_login_required
 @credentials_check
 def list_jobs(request):
        jobs = Jobs.objects.order_by('-date')[:30]
@@ -242,7 +244,21 @@ def list_jobs(request):
        template = loader.get_template('console/jobs.html')
        return HttpResponse(template.render(context, request))
 
+def sizify(value):
 
+    # value = ing(value)
+    if value < 512000:
+        value = value / 1024.0
+        ext = 'kb'
+    elif value < 4194304000:
+        value = value / 1048576.0
+        ext = 'mb'
+    else:
+        value = value / 1073741824.0
+        ext = 'gb'
+    return '%s %s' % (str(round(value, 2)), ext)
+
+@myuser_login_required
 @credentials_check
 def list_jobs_success(request):
        jobs = Jobs.objects.order_by('-date')[:30]

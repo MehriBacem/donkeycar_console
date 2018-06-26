@@ -12,9 +12,33 @@ from django.http import HttpResponse
 
 from console.models import *
 
+from console.views import myuser_login_required
 
 
 
+def credentials_check(f):
+    def wrap(request, *args, **kwargs):
+        count = credentials.objects.filter().count()
+        count1 = github.objects.filter().count()
+
+        if (count != 0 and count1 != 0):
+            result = credentials.objects.raw('SELECT * FROM console_credentials LIMIT 1;')
+            global AWS_ACCESS_KEY_ID
+            global AWS_SECRET_ACCESS_KEY
+            AWS_ACCESS_KEY_ID = result[0].aws_access_key_id
+            AWS_SECRET_ACCESS_KEY = result[0].aws_secret_access_key
+        else:
+            return HttpResponseRedirect("/settings/")
+        return f(request, *args, **kwargs)
+
+    wrap.__doc__ = f.__doc__
+    wrap.__name__ = f.__name__
+    return wrap
+
+
+
+@myuser_login_required
+@credentials_check
 def autopilot(request):
         id = request.GET.get('id', '')
         try:
@@ -65,7 +89,7 @@ def autopilot(request):
         return HttpResponseRedirect('/jobs/')
 
         #os.system('python ~/d2/manage.py drive --model ~/d2/models/' + model_name)
-
+@myuser_login_required
 def get_car_status_autopilot(request):
     try:
         poll = autopilot_proc.poll()
@@ -83,7 +107,7 @@ def get_car_status_autopilot(request):
         response = ''
 
     return HttpResponse(response)
-
+@myuser_login_required
 def kill_proc(request):
     try:
        autopilot_proc.kill()

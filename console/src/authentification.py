@@ -6,7 +6,6 @@ import json
 
 from django.http import HttpResponse,HttpResponseRedirect
 
-
 def login(request,accessToken):
     data = {'accessToken': accessToken}
     url = "https://38qhfwpc5j.execute-api.us-east-1.amazonaws.com/dev/user/login"

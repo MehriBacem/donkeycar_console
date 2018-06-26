@@ -8,6 +8,7 @@ import subprocess
 
 from django.http import HttpResponse
 from console.models import *
+from console.views import myuser_login_required
 
 
 def credentials_check(f):
@@ -31,7 +32,7 @@ def credentials_check(f):
 
 
 
-
+@myuser_login_required
 @credentials_check
 def get_car_status_training(request):
     try:
@@ -55,7 +56,7 @@ def get_car_status_training(request):
 
     return HttpResponse(response)
 
-
+@myuser_login_required
 @credentials_check
 def drive(request):
        try:

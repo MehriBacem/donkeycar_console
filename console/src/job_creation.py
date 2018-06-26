@@ -16,6 +16,8 @@ from django.http import HttpResponse
 
 from boto.s3.connection import S3Connection
 from console.models import *
+from console.views import myuser_login_required
+
 
 
 
@@ -51,7 +53,7 @@ def credentials_check(f):
     wrap.__doc__ = f.__doc__
     wrap.__name__ = f.__name__
     return wrap
-
+@myuser_login_required
 @credentials_check
 def create_job(request):
         try:
@@ -142,7 +144,7 @@ def create_job(request):
                     current_path = current_path.split()
                     s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY}
 
-                    url = "https://fo3dpxzfqh.execute-api.us-east-1.amazonaws.com/dev/uploadToS3"
+                    url = "https://38qhfwpc5j.execute-api.us-east-1.amazonaws.com/dev/uploadToS3"
                     headers = {'Content-type': 'application/json'}
                     response = requests.post(url, data=json.dumps(s3_data), headers=headers)
 
@@ -164,7 +166,7 @@ def create_job(request):
                                 'github_repo': github_repo.name, 'termination_time': termination_time,
                                 'model_name': model_name, 'availability_zone': availability_zone[0], 'job_name':job_name,
                                 'instance_type': instance_type, 'request_time': request_time}
-                        url = "https://fo3dpxzfqh.execute-api.us-east-1.amazonaws.com/dev/launchEC2"
+                        url = "https://38qhfwpc5j.execute-api.us-east-1.amazonaws.com/dev/launchEC2"
                         headers = {'Content-type': 'application/json'}
                         response = requests.post(url, data=json.dumps(data), headers=headers)
                         print(response.json())
@@ -232,7 +234,7 @@ def create_job(request):
 
         }
         return render(request, 'console/create_job.html',context)
-
+@myuser_login_required
 @credentials_check
 def check_availability_zone(instance_type):
     client = boto3.client('ec2', aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -263,6 +265,7 @@ def check_availability_zone(instance_type):
 
     return newlist
 
+@myuser_login_required
 @credentials_check
 def display_availability(request,name):
         response = check_availability_zone(name)

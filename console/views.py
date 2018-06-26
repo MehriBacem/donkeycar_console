@@ -55,7 +55,7 @@ def index(request):
     return HttpResponse(template.render({}, request))
 
 
-
+@myuser_login_required
 @credentials_check
 def home(request):
        template = loader.get_template('console/home.html')
