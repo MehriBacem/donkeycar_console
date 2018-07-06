@@ -35,26 +35,20 @@ def sizify(value):
         value = value / 1073741824.0
         ext = 'gb'
     return '%s %s' % (str(round(value, 2)), ext)
-def credentials_check(f):
+def github_check(f):
     def wrap(request, *args, **kwargs):
-        count = credentials.objects.filter().count()
         count1 = github.objects.filter().count()
 
-        if (count != 0 and count1 != 0):
-            result = credentials.objects.raw('SELECT * FROM console_credentials LIMIT 1;')
-            global AWS_ACCESS_KEY_ID
-            global AWS_SECRET_ACCESS_KEY
-            AWS_ACCESS_KEY_ID = result[0].aws_access_key_id
-            AWS_SECRET_ACCESS_KEY = result[0].aws_secret_access_key
-        else:
+        if (count1 == 0):
             return HttpResponseRedirect("/settings/")
         return f(request, *args, **kwargs)
 
     wrap.__doc__ = f.__doc__
     wrap.__name__ = f.__name__
     return wrap
+
 @myuser_login_required
-@credentials_check
+@github_check
 def create_job(request):
         try:
             Local_directory = local_directory.objects.latest('id')
@@ -63,10 +57,6 @@ def create_job(request):
             updated_local_directory_name = ''
         choices = ['t2.micro', 't2.medium', 'g2.2xlarge', 'g2.8xlarge', 'p2.xlarge', 'p3.2xlarge', 'p3.8xlarge']
         errorMessage = ""
-        conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
-                            aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-
-        bucket = conn.get_bucket(AWS_ACCESS_KEY_ID.lower())
         message = ""
         job_number = Jobs.objects.filter().count()
         if request.method == "POST":
@@ -75,6 +65,7 @@ def create_job(request):
             availability_zone = request.POST.get('AZ')
             max_time = request.POST.get('max_time')
             request_time = request.POST.get('request_time')
+            facebook_id =request.session['userid']
 
             print(availability_zone)
             print(instance_type)
@@ -126,64 +117,90 @@ def create_job(request):
                     except:
                         extension = ''
                     if extension != '' :
-                       model_name = 'job_' + str(job.id)+ extension
+                       model_name = facebook_id+'_job_' + str(job.id)+ extension
                     else:
-                       model_name = 'job_' + str(job.id)
+                       model_name = facebook_id+'_job_' + str(job.id)
 
-                    job_name = 'job_' + str(job.id)
+                    job_name = facebook_id+'_job_' + str(job.id)
 
                     os.chdir(dataPath[0])
                     current_path = os.popen('pwd').read()
                     print(current_path)
-                    os.system('tar -zcf   job_' + str(job.id) + '.tar.gz ' + selected_data)
-                    tarfile_size = os.popen("ls -sh job_" + str(job.id) + ".tar.gz  | awk '{print $1}'").read()
+                    os.system('tar -zcf   '+facebook_id+'_job_' + str(job.id) + '.tar.gz ' + selected_data)
+                    tarfile_size = os.popen("ls -sh "+facebook_id+"_job_" + str(job.id) + ".tar.gz  | awk '{print $1}'").read()
                     print(tarfile_size)
                     Jobs.objects.filter(id=job.id).update(tarfile_size=tarfile_size)
 
                     current_path = os.popen('pwd').read()
                     current_path = current_path.split()
-                    s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY}
+                    tarfile_name = job_name+'.tar.gz'
 
-                    url = "https://38qhfwpc5j.execute-api.us-east-1.amazonaws.com/dev/uploadToS3"
+                    s3_data = {"name": tarfile_name}
+
+                    url = "https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/upload/to/S3"
                     headers = {'Content-type': 'application/json'}
                     response = requests.post(url, data=json.dumps(s3_data), headers=headers)
-
+                    current_path = os.popen('pwd').read()
+                    current_path = current_path.split()
+                    print(current_path)
                     print(response.json())
                     response_url = (response.json())['url']
-                    o = urlparse(response_url)
-                    path = o.path.split('/', 1)[1]
-                    s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID,
-                                        aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-                    tarfile_name = 'job_' + str(job.id) + '.tar.gz'
-                    s3.meta.client.upload_file(os.path.join(current_path[0], tarfile_name), AWS_ACCESS_KEY_ID.lower(),
-                                               path.split('/', 1)[1] + '/' + tarfile_name)
+
+                    with open(current_path[0] + "/" + tarfile_name, 'rb') as data:
+                        requests.put(response_url, data=data)
 
                     if instance_type != '':
                         termination_time = (Jobs.objects.get(id=job.id)).instance_max
                         github_repo = github.objects.latest('id')
 
-                        data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY,
+                        data = { 'facebook_ID' : request.session['userid'],
                                 'github_repo': github_repo.name, 'termination_time': termination_time,
                                 'model_name': model_name, 'availability_zone': availability_zone[0], 'job_name':job_name,
                                 'instance_type': instance_type, 'request_time': request_time}
-                        url = "https://38qhfwpc5j.execute-api.us-east-1.amazonaws.com/dev/launchEC2"
+                        url = "https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/launchEC2"
                         headers = {'Content-type': 'application/json'}
                         response = requests.post(url, data=json.dumps(data), headers=headers)
                         print(response.json())
-                        Jobs.objects.filter(id=job.id).update(request_id=(response.json())['request_id'])
-                        # response =launch_ec2_instance(job.id,job_name,instance_type,availability_zone[0],termination_time,request_time)
+
+                        try:
+                            Jobs.objects.filter(id=job.id).update(request_id=(json.loads(response.json()['body'])['request_id']))
+                        except:
+                            job.delete()
                         Jobs.objects.filter(id=job.id).update(date=datetime.now())
                         if "InvalidParameterValue" in response:
                             errorMessage = "This type of instance is invalid"
-                            job.delete()
+                            Jobs.objects.filter(id=job.id).delete()
                         elif "UnauthorizedOperation" in response:
                             errorMessage = "Check your IAM Permissions"
-                            job.delete()
+                            Jobs.objects.filter(id=job.id).delete()
                     else:
                         errorMessage = " Enter an instance type "
-                        job.delete()
-                    os.system('rm -r  job_' + str(job.id) + '.tar.gz ')
-                    return HttpResponseRedirect('/jobs/success/')
+
+
+                    try:
+                        msg = response.json()['message']
+                        if msg == "Endpoint request timed out":
+                            print("faaail")
+                        return HttpResponseRedirect('/jobs/timeout/')
+                    except Exception as  e:
+                        print(e)
+
+                        if (json.loads(response.json()['body'])['message'] == "You don't have enough credits"):
+                            Jobs.objects.filter(id=job.id).delete()
+                            return HttpResponseRedirect('/jobs/fail/')
+
+
+                        elif json.loads(response.json()['body'])['message'] == "Try after an hour":
+                            Jobs.objects.filter(id=job.id).delete()
+
+                        else:
+                            return HttpResponseRedirect('/jobs/success/')
+
+
+
+
+                    os.system('rm -r  ' + facebook_id + '_job_' + str(job.id) + '.tar.gz ')
+
 
         list_data = os.popen('ls ~/'+updated_local_directory_name+'/data/').read()
         directories = list_data.split()
@@ -232,41 +249,45 @@ def create_job(request):
             'errorMessage': errorMessage,
             'choices': choices,
 
+
         }
         return render(request, 'console/create_job.html',context)
-@myuser_login_required
-@credentials_check
-def check_availability_zone(instance_type):
-    client = boto3.client('ec2', aws_access_key_id=AWS_ACCESS_KEY_ID,
-                          aws_secret_access_key=AWS_SECRET_ACCESS_KEY,region_name='us-east-1')
-    response = client.describe_spot_price_history(
-    InstanceTypes=[
-        instance_type
-    ],
-    ProductDescriptions=[
-        'Linux/UNIX',
-    ],
-        MaxResults=6,
+#def check_availability_zone(instance_type):
+  #  client = boto3.client('ec2', aws_access_key_id=AWS_ACCESS_KEY_ID,
+                         # aws_secret_access_key=AWS_SECRET_ACCESS_KEY,region_name='us-east-1')
+   # response = client.describe_spot_price_history(
+   # InstanceTypes=[
+    #    instance_type
+   # ],
+   # ProductDescriptions=[
+     #   'Linux/UNIX',
+    #],
+      #  MaxResults=6,
 
-    )
+    #)
 
 
-    List= response['SpotPriceHistory']
-    List.sort(key=itemgetter('SpotPrice'))
+    #List= response['SpotPriceHistory']
+    #List.sort(key=itemgetter('SpotPrice'))
 
-    models = { az['AvailabilityZone'] for az in List}
-    listAZ = list(models)
+   # models = { az['AvailabilityZone'] for az in List}
+    #listAZ = list(models)
 
-    newlist=[]
-    for l in listAZ:
-        listA = [x for x in List if x['AvailabilityZone']== l]
-        newlist.append(l + " " + listA[0]['SpotPrice']  + "/H")
+    #newlist=[]
+    #for l in listAZ:
+     #   listA = [x for x in List if x['AvailabilityZone']== l]
+      #  newlist.append(l + " " + listA[0]['SpotPrice']  + "/H")
 
 
-    return newlist
+ #   return newlist
 
 @myuser_login_required
-@credentials_check
 def display_availability(request,name):
-        response = check_availability_zone(name)
-        return HttpResponse(response)
+       # response = check_availability_zone(name)
+       data = {'instance_type': name}
+       url = "https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/availabilityzone"
+       headers = {'Content-type': 'application/json'}
+       response = requests.post(url, data=json.dumps(data), headers=headers)
+
+       print("heyy",response.json())
+       return HttpResponse(json.loads(response.json()['body'])['AZ'])

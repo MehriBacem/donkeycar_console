@@ -134,6 +134,9 @@ label{
         <li ><a href="/data/"><i class="fa fa-folder"></i><span> Data Folders</span></a></li>
             <li ><a href="/jobs/"><i class="fa fa-file"></i> <span>Jobs</span></a></li>
 
+                    <li ><a href="/account/"><i class="fa fa-user"></i> <span>MyAccount </span></a></li>
+
+
 
       </ul>
       </div>
@@ -231,6 +234,11 @@ for (i = 0; i < res.length - 1; i++) {
     });
 });
 </script>
+
+
+
+
+
 <script>
 $(document).ready(function() {
 
@@ -268,7 +276,7 @@ console.log(res)
             $('#state').html("<h1>"+data +"</h1>")
 })
 
-},5000);
+},10000);
 </script>
    <script>
 
@@ -288,7 +296,7 @@ console.log(res)
             $('#state').html("<h1>"+data +"</h1>")
 })
 
-},5000);
+},10000);
 </script>
 
 
@@ -377,6 +385,27 @@ $.ajaxSetup({
         }
     });
 });
+</script>
+
+<script>
+
+  $(function() {
+
+             $.post("/credits/enquire/", function(result){
+
+             if(result == "Unauthorized"){
+
+
+             }else{
+
+             $("#credit_add").html('<div> <h4>&nbsp;&nbsp;&nbsp;  You have ' + result + ' credits remaining </h4></div>')
+
+             }
+
+  });
+})
+
+
 </script>
 
 

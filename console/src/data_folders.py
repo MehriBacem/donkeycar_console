@@ -15,18 +15,11 @@ from console.views import myuser_login_required
 
 
 
-def credentials_check(f):
+def github_check(f):
     def wrap(request, *args, **kwargs):
-        count = credentials.objects.filter().count()
         count1 = github.objects.filter().count()
 
-        if (count != 0 and count1 != 0):
-            result = credentials.objects.raw('SELECT * FROM console_credentials LIMIT 1;')
-            global AWS_ACCESS_KEY_ID
-            global AWS_SECRET_ACCESS_KEY
-            AWS_ACCESS_KEY_ID = result[0].aws_access_key_id
-            AWS_SECRET_ACCESS_KEY = result[0].aws_secret_access_key
-        else:
+        if (count1 == 0):
             return HttpResponseRedirect("/settings/")
         return f(request, *args, **kwargs)
 
@@ -35,10 +28,8 @@ def credentials_check(f):
     return wrap
 
 
-
-
 @myuser_login_required
-@credentials_check
+@github_check
 def display_data_folders(request):
         try:
             Local_directory = local_directory.objects.latest('id')
@@ -88,7 +79,7 @@ def display_data_folders(request):
 
         return render(request, 'console/data_folders.html', context)
 @myuser_login_required
-@credentials_check
+@github_check
 def getfiles(request):
         try:
             Local_directory = local_directory.objects.latest('id')
@@ -109,6 +100,7 @@ def getfiles(request):
         response['Content-Length'] = zip_io.tell()
         return response
 @myuser_login_required
+@github_check
 def delete_data(request):
     name= request.GET.get('name', '')
     try:
@@ -121,6 +113,7 @@ def delete_data(request):
 
 
 @myuser_login_required
+@github_check
 def delete_empty_folders(request):
     try:
         Local_directory = local_directory.objects.latest('id')
@@ -151,6 +144,7 @@ def delete_empty_folders(request):
     return HttpResponseRedirect('/data/')
 
 @myuser_login_required
+@github_check
 def delete_data_folder_comment(request):
 
     comment= request.GET.get('comment', '')
@@ -172,7 +166,7 @@ def delete_data_folder_comment(request):
 
     return HttpResponseRedirect('/data/')
 @myuser_login_required
-@credentials_check
+@github_check
 def add_data_folder_comment(request):
 
 
