@@ -645,6 +645,8 @@ def update_status_by_id(request):
             if job.request_state == 'schedule-expired':
                 Jobs.objects.filter(id=job.id).update(state='Failed')
                 Jobs.objects.filter(id=job.id).update(duration='0')
+
+
             else:
                 conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
                                     aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
@@ -677,6 +679,16 @@ def update_status_by_id(request):
                     elif now > job.date + timedelta(minutes=job.instance_max):
                         Jobs.objects.filter(id=job.id).update(state='Failed')
                         Jobs.objects.filter(id=job.id).update(duration='0')
+
+        job = Jobs.objects.get(id=id)
+
+        if job.request_state == 'instance-terminated-by-user' and job.state == 'Pending':
+            Jobs.objects.filter(id=job.id).update(state='Failed')
+            Jobs.objects.filter(id=job.id).update(duration='0')
+
+
+
+
 
 
         return HttpResponseRedirect('/jobs/')

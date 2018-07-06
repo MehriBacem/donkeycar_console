@@ -68,50 +68,7 @@ label{
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
 
-          <!-- Tasks: style can be found in dropdown.less -->
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
-          {% if user.is_authenticated %}
-
-              {%  if user.first_name != '' %}
-                  <img src="{{user.first_name}}" class="user-image" >
-                                  {% endif %}
-
-         <span class="hidden-xs">   {{user}} </span>
-
-
-                                  {% endif %}
-
-
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-
-              <li class="user-header">
-                                {%  if user.first_name != '' %}
-
-                <img src="{{user.first_name}}" class="img-circle" >
-                                                    {% endif %}
-
-              </li>
-              <!-- Menu Body -->
-
-              <!-- Menu Footer-->
-              <li class="user-footer">
-
-                <div class="pull-right">
-                  <a  class="btn btn-default btn-flat" href="/logout/">Sign out</a>
-                </div>
-
-
-              </li>
-
-
-            </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
           <li>
             <a>   </a>
           </li>
@@ -236,6 +193,10 @@ for (i = 0; i < res.length - 1; i++) {
         });
     });
 });
+</script>
+
+<script language="JavaScript">
+document.write('<a  target="_blank" href="' + window.location.protocol + '//' + window.location.hostname + ':8777' + '" >Link to same page on port 8777:</a> ' );
 </script>
    <script>
 
