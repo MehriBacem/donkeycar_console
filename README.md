@@ -2,7 +2,7 @@
 
 ## What is Donkey Car Console ?
 
-Donkey Car console is a software deployed on the Pi used to facilitate using the car during the phases of driving, training the model and autopilot.
+Donkey Car console is a software deployed on the Pi to facilitate  the use of the car during the phases of driving, training the model and autopilot.
 
 ![alt text](docs/home.png)
 
@@ -11,9 +11,9 @@ Donkey Car console is a software deployed on the Pi used to facilitate using the
 
 As a donkey car  user, you have to type a lot of commands so you can have a ready model to use. Furthermore, the training phase takes a lot of time to complete.
 
-Thanks to the donkey car Console, you have a user interface UI that helps you manage all the process of turning your car to self-driving. Also, now you won't wait a lot to use your model. 
+Thanks to the Donkey Car Console, you have a user interface  that helps you manage all the process of turning your car to self-driving in a short time. 
 
-The training will be using  EC2 instances and you can choose which type of instance you want to train with. Of course the time of training will depend of the size of the chosen instance.
+The training will be done  using  EC2 instances and you can choose which type of instance you want to train with. Of course the time of training will depend on the size of the chosen instance.
 
 ### Installation 
 
@@ -68,17 +68,17 @@ The donkey car console won't enable you to use its features if you don't set up 
 #### Note: if you don't have an amazon account you can visit this link https://aws.amazon.com/resources/create-account/ and create one.
 
 #### 2 : Set up your Github Repository in the settings page:
-You have to specify the Github repository you want to use in to train the model and the model extension.
-In fact, some Github repositories used want specific extension in the model name.
+You have to specify the Github repository you want to use to train your model  and choose the model extension.
+In fact, some Github repositories  require a specific extension in the model name.
 
 ![alt text](docs/github.png)
 
-After setting up your AWS credentials and the Github repository you want to use to train your model , you can specify which way you want your car to be driven .
+After setting up your AWS credentials and the Github repository you want to use to train your model , you can specify which way you want your car to be driven.
 
 #### 3. Manage your commands in the settings page:
 
 The driving command by default is "python manage.py drive" 
-if you add in the settings page ' - js' the command executed will be "python manage.py drive  - js " and you wan use your PS3 controller to drive the car.
+if you add in the settings page ' - js' the command executed will be "python manage.py drive  - js " and you can use your PS3 controller to drive the car.
 
 ![alt text](docs/command.png)
 
@@ -88,7 +88,7 @@ You can specify the name of your local directory  for managing donkey 'e.g: d2'
 
 ![alt text](docs/localdirec.png)
 
-## How  to make you donkey car self-driving ?
+## How  to make your donkey car self-driving ?
 
 ### 1.  Drive and collect Data :
 You can start driving your car to collect data in the home page.
@@ -115,9 +115,9 @@ The type of the spot instance you want to start the job with. <br />
 #### Availability Zone : 
 Once you select the type of the instance a list of the available zones will be displayed with the price of each one per hour. <br />
 #### Ec2 Termination Time:
-You can specify the termination time of your spot instance.  the instance will terminate itself after this time if the model is not created yet.<br />
+You can specify the termination time of your spot instance. In fact, the instance will terminate itself after this time even if the model is not created yet.<br />
 #### Spot Request Time:
-If you submit a job a request is sent to create a spot instance with the specified parameters. If this request is not fulfilled within this time, it will be canceled.<br />
+If you submit a job, a request is sent to create a spot instance with the specified parameters. If this request is not fulfilled within this time, it will be canceled.<br />
 
 ![alt text](docs/createjob.png)
 
@@ -148,7 +148,7 @@ Each job will be identified by :
 
 - **Autopilot**: if the job is finished successfully a button will appear to indicate that you can start the autopilot mode using this model.
 
-- **Actions** : you can delete the job , cancel it , and download its logs. you have two different logs : "Training Logs" shows the process of training the model and "Commands Logs" is the responsible of showing the commands executed in the EC2 instance.
+- **Actions** : you can delete the job , cancel it , and download its logs. You have two different logs : "Training Logs" shows the process of training the model and "Commands Logs" is the responsible for showing the commands executed in the EC2 instance.
 
 - **Update**: this button will help you update the state of the  job and check if the a model is successfully created or not.
 
