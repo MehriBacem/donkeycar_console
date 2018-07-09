@@ -61,6 +61,27 @@ from boto.s3.key import Key
 from console.models import *
 
 
+
+def credentials_check(f):
+    def wrap(request, *args, **kwargs):
+        count = credentials.objects.filter().count()
+        count1 = github.objects.filter().count()
+
+        if (count != 0 and count1 != 0):
+            result = credentials.objects.raw('SELECT * FROM console_credentials LIMIT 1;')
+            global AWS_ACCESS_KEY_ID
+            global AWS_SECRET_ACCESS_KEY
+            AWS_ACCESS_KEY_ID = result[0].aws_access_key_id
+            AWS_SECRET_ACCESS_KEY = result[0].aws_secret_access_key
+        else:
+            return HttpResponseRedirect("/settings/")
+        return f(request, *args, **kwargs)
+
+    wrap.__doc__ = f.__doc__
+    wrap.__name__ = f.__name__
+    return wrap
+
+
 def index(request):
 
     return HttpResponseRedirect('/home/')
@@ -68,9 +89,9 @@ def index(request):
 
 
 
-
+@credentials_check
 def drive(request):
-    if verify() == True :
+
        try:
             Local_directory = local_directory.objects.latest('id')
             updated_local_directory_name = Local_directory.name
@@ -104,8 +125,7 @@ def drive(request):
 
        template = loader.get_template('console/home.html')
        return HttpResponse(template.render({}, request))
-    else:
-       return render(request, 'console/credentials.html', {})
+
 def kill_proc(request):
     try:
        autopilot_proc.kill()
@@ -114,7 +134,7 @@ def kill_proc(request):
     return HttpResponseRedirect('/jobs/')
 
 
-
+@credentials_check
 def save_local_directory(request):
         message = ""
         updated_repo = ""
@@ -162,26 +182,8 @@ def save_local_directory(request):
                                              'AWS_KEY': aws_key_id}, request))
 
 
-def verify():
-    count = credentials.objects.filter().count()
-    count1 = github.objects.filter().count()
-
-    if (count != 0 and count1 != 0):
-        result = credentials.objects.raw('SELECT * FROM console_credentials LIMIT 1;')
-        global AWS_ACCESS_KEY_ID
-        global AWS_SECRET_ACCESS_KEY
-        AWS_ACCESS_KEY_ID = result[0].aws_access_key_id
-        AWS_SECRET_ACCESS_KEY = result[0].aws_secret_access_key
-
-
-        return True
-    else:
-        return False
-
-
-
+@credentials_check
 def display_data_folders(request):
-    if verify() == True:
         try:
             Local_directory = local_directory.objects.latest('id')
             updated_local_directory_name = Local_directory.name
@@ -201,7 +203,15 @@ def display_data_folders(request):
             if os.path.isdir(direcPath[0]):
 
                 if os.path.exists(direcPath[0] + '/donkeycar-console.json') == True:
-                    print('it exists')
+                    with open(direcPath[0] + '/donkeycar-console.json', 'r') as outfile:
+                        data = json.load(outfile)
+                        print(data)
+                    tmp = data["no"]
+                    noImages = os.popen('ls -l ~/' + updated_local_directory_name + '/data/' + dir + ' | grep .jpg | wc -l').read()
+                    data["no"] = noImages
+
+                    with open(direcPath[0] + '/donkeycar-console.json', 'w') as jsonFile:
+                        json.dump(data, jsonFile)
                 else:
                     with open(direcPath[0] + '/donkeycar-console.json', 'w') as outfile:
                         noImages = os.popen('ls -l ~/'+updated_local_directory_name+'/data/' + dir + ' | grep .jpg | wc -l').read()
@@ -229,9 +239,6 @@ def display_data_folders(request):
         }
 
         return render(request, 'console/data_folders.html', context)
-
-    else:
-        return render(request, 'console/credentials.html', {})
 
 def getfiles(request):
         try:
@@ -318,9 +325,8 @@ def sizify(value):
         value = value / 1073741824.0
         ext = 'gb'
     return '%s %s' % (str(round(value, 2)), ext)
-
+@credentials_check
 def list_jobs(request):
-    if verify():
        jobs = Jobs.objects.order_by('-date')[:30]
        for job in jobs:
            import re
@@ -336,8 +342,7 @@ def list_jobs(request):
        }
        template = loader.get_template('console/jobs.html')
        return HttpResponse(template.render(context, request))
-    else:
-       return render(request, 'console/credentials.html', {})
+
 
 
 def save_controller_settings(request):
@@ -390,9 +395,9 @@ def save_controller_settings(request):
     return HttpResponse(template.render({'local_directory': updated_local_directory_name,'controller_message': message,'training_controller':updated_training_controller,'updated_extension':updated_extension,'updated_repo':updated_repo_name,'AWS_KEY':aws_key_id}, request))
 
 
-
+@credentials_check
 def list_jobs_success(request):
-    if verify():
+
        jobs = Jobs.objects.order_by('-date')[:30]
        for job in jobs:
            import re
@@ -407,8 +412,7 @@ def list_jobs_success(request):
        }
        template = loader.get_template('console/jobs.html')
        return HttpResponse(template.render(context, request))
-    else:
-       return render(request, 'console/credentials.html', {})
+
 
 
 
@@ -572,9 +576,7 @@ def add_remark(request):
     job.Comments.add(remark)
     return HttpResponse('success')
 
-
-def verify_logs(state,id):
-    if verify() == True:
+def verify_logs(state,id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
 
             conn = S3Connection(aws_access_key_id=AWS_ACCESS_KEY_ID,
                                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
@@ -601,7 +603,6 @@ def verify_logs(state,id):
 
 
 def cancel_request(request):
-    if verify():
        client = boto3.client('ec2', aws_access_key_id=AWS_ACCESS_KEY_ID,
                               aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name='us-east-1')
        id = request.GET.get('id', '')
@@ -614,14 +615,15 @@ def cancel_request(request):
        Jobs.objects.filter(id=id).update(state='Canceled')
        Jobs.objects.filter(id=id).update(duration='0')
        return HttpResponseRedirect('/jobs/')
+
+@credentials_check
 def update_status_by_id(request):
-    if verify() == True:
         client = boto3.client('ec2', aws_access_key_id=AWS_ACCESS_KEY_ID,
                               aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name='us-east-1')
         now = datetime.now(pytz.utc)
         id = request.GET.get('id', '')
         job = Jobs.objects.get(id=id)
-        verify_logs(job.state,job.id)
+        verify_logs(job.state,job.id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
         if job.request_id != "0":
                 if now > job.date + timedelta(minutes=job.request_time):
                     try:
@@ -692,8 +694,7 @@ def update_status_by_id(request):
 
 
         return HttpResponseRedirect('/jobs/')
-    else:
-        return render(request, 'console/credentials.html', {})
+
 
 
 def convert_timedelta(duration):
@@ -702,9 +703,8 @@ def convert_timedelta(duration):
     minutes = (seconds % 3600) // 60
     seconds = (seconds % 60)
     return hours, minutes, seconds
-
+@credentials_check
 def copy_local(request):
-    if verify() == True:
        id = request.GET.get('id', '')
        try:
            Local_directory = local_directory.objects.latest('id')
@@ -739,12 +739,11 @@ def copy_local(request):
        else:
            s3.Object(AWS_ACCESS_KEY_ID.lower(),key_path.split('/', 1)[1] + '/' + model_name).download_file(path[0] + model_name)
 
-    return HttpResponseRedirect('/jobs/')
+       return HttpResponseRedirect('/jobs/')
 
 
-
+@credentials_check
 def autopilot(request):
-    if verify() == True:
         id = request.GET.get('id', '')
         try:
             Local_directory = local_directory.objects.latest('id')
@@ -794,9 +793,6 @@ def autopilot(request):
         return HttpResponseRedirect('/jobs/')
 
         #os.system('python ~/d2/manage.py drive --model ~/d2/models/' + model_name)
-    else:
-        return render(request, 'console/credentials.html', {})
-
 def get_car_status_autopilot(request):
     try:
         poll = autopilot_proc.poll()
@@ -837,15 +833,13 @@ def get_car_status_training(request):
         response = ''
 
     return HttpResponse(response)
-
+@credentials_check
 def home(request):
-    if verify() == True :
        template = loader.get_template('console/home.html')
        return HttpResponse(template.render({}, request))
-    else:
-        return render(request, 'console/credentials.html', {})
+
+@credentials_check
 def create_job(request):
-    if verify() == True:
         try:
             Local_directory = local_directory.objects.latest('id')
             updated_local_directory_name = Local_directory.name
@@ -987,14 +981,21 @@ def create_job(request):
             if os.path.isdir(direcPath[0]):
 
                 if os.path.exists(direcPath[0] + '/donkeycar-console.json') == True:
-                    print('it exists')
+                    with open(direcPath[0] + '/donkeycar-console.json', 'r') as outfile:
+                        data = json.load(outfile)
+                        print(data)
+                    tmp = data["no"]
+                    noImages = os.popen('ls -l ~/' + updated_local_directory_name + '/data/' + dir + ' | grep .jpg | wc -l').read()
+                    data["no"] = noImages
+
+                    with open(direcPath[0] + '/donkeycar-console.json', 'w') as jsonFile:
+                        json.dump(data, jsonFile)
+
                 else:
                     with open(direcPath[0] + '/donkeycar-console.json', 'w') as outfile:
                         noImages = os.popen('ls -l ~/'+updated_local_directory_name+'/data/' + dir + ' | grep .jpg | wc -l').read()
                         noImages.strip()
-                        print(noImages)
                         noImages = int(noImages)
-
                         year = os.popen('date +"%Y"').read()
                         time = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $8}'").read()
                         month = os.popen("ls -ldc ~/"+updated_local_directory_name+"/data/" + dir + " | awk  '{print $6}'").read()
@@ -1024,8 +1025,37 @@ def create_job(request):
 
         }
         return render(request, 'console/create_job.html',context)
-    else:
-        return render(request, 'console/credentials.html', {})
+
+
+
+def delete_empty_folders(request):
+    try:
+        Local_directory = local_directory.objects.latest('id')
+        updated_local_directory_name = Local_directory.name
+    except:
+        updated_local_directory_name = ''
+
+    list_data = os.popen('ls ~/' + updated_local_directory_name + '/data/').read()
+
+    directories = list_data.split()
+    print(directories)
+    for dir in directories:
+
+        direcPath = os.popen('echo ~/' + updated_local_directory_name + '/data/' + dir).read()
+        direcPath = direcPath.split()
+
+        if os.path.isdir(direcPath[0]):
+
+                    noImages = os.popen(
+                        'ls -l ~/' + updated_local_directory_name + '/data/' + dir + ' | grep .jpg | wc -l').read()
+                    noImages.strip()
+                    print(noImages)
+                    noImages = int(noImages)
+
+                    if noImages == 0 :
+                        os.system('sudo rm -r '+direcPath[0])
+
+    return HttpResponseRedirect('/data/')
 
 def check_availability_zone(instance_type):
     client = boto3.client('ec2', aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -1057,7 +1087,6 @@ def check_availability_zone(instance_type):
     return newlist
 
 def display_availability(request,name):
-    if verify():
         response = check_availability_zone(name)
         return HttpResponse(response)
 

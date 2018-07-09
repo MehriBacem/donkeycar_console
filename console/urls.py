@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^settings/githubRepository/$', views.save_github_repo, name='save_github_repo'),
 
     url(r'^settings/local/directory/$', views.save_local_directory, name='save_local_directory'),
-
+    url(r'^data/empty/folder/delete/$', views.delete_empty_folders, name='delete_empty_folders'),
     url(r'^data/$', views.display_data_folders, name='data_folders'),
     url(r'^job/create/$', views.create_job, name='create_job'),
     url(r'^jobs/$', views.list_jobs, name='list_jobs'),
