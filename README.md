@@ -4,27 +4,30 @@
 
 Donkey Car console is a software deployed on the Pi to facilitate  the use of the car during the phases of driving, training the model and autopilot.
 
-![alt text](docs/home.png)
+![alt text](docs/job.png)
 
 
 ## Why do you want to use Donkey Car Console ?
 
-As a donkey car  user, you have to type a lot of commands so you can have a ready model to use. Furthermore, the training phase takes a lot of time to complete.
+Thanks to the Donkey Car Console, you  will have a user interface deployed on your pi that helps you manage all the process of turning your car into self-driving. 
 
-Thanks to the Donkey Car Console, you have a user interface  that helps you manage all the process of turning your car to self-driving in a short time. 
+## Disclaimer
+### security warnings
+- You are responsible for your own Pi security. If it is compromised you will lose your credentials saved in the local database .<br />
+- You should set a budget limit for your AWS account.<br />
+- We are not responsible for any lost of your AWS credentials.<br />
 
-The training will be done  using  EC2 instances and you can choose which type of instance you want to train with. Of course the time of training will depend on the size of the chosen instance.
-
-### Installation 
+## Installation 
 
     pi@d2:~$ git clone https://github.com/MehriBacem/donkeycar_console.git
     pi@d2:~$ cd donkeycar_console/
     pi@d2:donkeycar_console$ pip install -r requirements.txt
 
 
-### Running as a service
+## Running as a service
 
-- add your host to  ALLOWED_HOSTS  in "donkeycar_console/donkeycar_console/settings.py"
+- add your hostname to  ALLOWED_HOSTS  in "donkeycar_console/donkeycar_console/settings.py"
+- follow these commands :
 
       pi@d2:~$ sudo apt-get update
       pi@d2:~$ sudo apt-get install supervisor
@@ -46,7 +49,10 @@ The training will be done  using  EC2 instances and you can choose which type of
       pi@d2:~$ sudo service supervisor start
       pi@d2:~$ sudo reboot
       
-- open the console with "hostname:8000" (e.g  d2.local:8000)
+- open the console with "hostname:8000" (e.g  d2.local:8000). You will see something like this :
+![alt text](docs/view.png)
+
+
 
 
 #### Note:
@@ -55,9 +61,9 @@ if you change the hostname of your car : <br />
 2. You must add the new hostname to ALLOWED_HOSTS in "donkeycar_console/donkeycar_console/settings.py"
 
 
-## How to turn your car to self-driving in a short time?
 
-### What you should do before starting
+## How to set up the donkey car console settings ?
+
 #### 1 : Set up your AWS credentials in the settings page:
 
 The donkey car console won't enable you to use its features if you don't set up your AWS credentials . In fact, our backend server will use those credentials to train your model and make it ready to use.
@@ -90,6 +96,8 @@ You can specify the name of your local directory  for managing donkey 'e.g: d2'
 
 ## How  to make your donkey car self-driving ?
 
+###  How to collect data ?
+
 ### 1.  Drive and collect Data :
 You can start driving your car to collect data in the home page.
 The page will display the state of the car if it is driving or not and you can start and stop driving using two buttons. Moreover, the collected data will be stored in the local directory of the donkey car.
@@ -104,8 +112,7 @@ You can save some remarks for each folder , download it to make sure of its con
 ![alt text](docs/dataFolders.png)
 
 
-### Start a job and train your model 
-
+### How to start a job and train your model ?
 
 Once you collect data, you can start a job to train your model. <br />
 To start a new job, you select "ADD JOB" in the jobs page. <br />
@@ -155,11 +162,7 @@ Each job will be identified by :
 ![alt text](docs/job.png)
 
 
-## Disclaimer
-### warnings
-- You are responsible for your own Pi security. If it is compromised you will lose your credentials saved in the local database .<br />
-- You should set a budget limit for your AWS account.<br />
-- We are not responsible for any lost of your AWS credentials.<br />
+
 
 
 
