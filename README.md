@@ -13,6 +13,7 @@ Thanks to the Donkey Car Console, you  will have a user interface deployed on yo
 
 ## Disclaimer
 ### security warnings
+- Your credentials will be saved in your local database and will be used by our backend server to train your model.
 - You are responsible for your own Pi security. If it is compromised you will lose your credentials saved in the local database .<br />
 - You should set a budget limit for your AWS account.<br />
 - We are not responsible for any lost of your AWS credentials.<br />
@@ -94,9 +95,8 @@ You can specify the name of your local directory  for managing donkey 'e.g: d2'
 
 ![alt text](docs/localdirec.png)
 
-## How  to make your donkey car self-driving ?
 
-###  How to collect data ?
+##  How to collect data ?
 
 ### 1.  Drive and collect Data :
 You can start driving your car to collect data in the home page.
@@ -112,7 +112,7 @@ You can save some remarks for each folder , download it to make sure of its con
 ![alt text](docs/dataFolders.png)
 
 
-### How to start a job and train your model ?
+## How to start a job and train your model ?
 
 Once you collect data, you can start a job to train your model. <br />
 To start a new job, you select "ADD JOB" in the jobs page. <br />
