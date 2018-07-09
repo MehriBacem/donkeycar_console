@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e52cd1c0-5cc6-4633-9b26-dfbac383b49e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/data_folders.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/data_folders.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/donkeycar_console/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/donkeycar_console/settings.py" afterDir="false" />
-    </list>
+    <list default="true" id="e52cd1c0-5cc6-4633-9b26-dfbac383b49e" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -271,7 +263,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="2061" height="817" extended-state="1" />
+    <frame x="0" y="23" width="2061" height="817" extended-state="0" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11062591" />
       <window_info anchor="bottom" id="TODO" order="6" />
