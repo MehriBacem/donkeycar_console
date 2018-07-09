@@ -2,25 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e52cd1c0-5cc6-4633-9b26-dfbac383b49e" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/console/src/credits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/src/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/src/account.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/console/src/authentification.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/src/authentification.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/console/src/autopilot.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/src/autopilot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/src/data_folders.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/src/data_folders.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/src/drive.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/src/drive.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/src/credits.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/src/credits.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/console/src/job_creation.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/src/job_creation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/console/src/jobs.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/src/jobs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/controller.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/controller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/credentials.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/credentials.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/github.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/github.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/jobs.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/jobs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/src/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/src/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/console/templates/console/local_directory.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/local_directory.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/templates/console/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/console/templates/console/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/console/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/donkeycar_console/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/donkeycar_console/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,41 +21,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="account.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/src/account.py">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/src/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1380">
-              <caret line="92" column="14" selection-start-line="92" selection-start-column="14" selection-end-line="92" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="315">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="job_creation.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/console/src/job_creation.py">
+      <file leaf-file-name="local_directory.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="282" lean-forward="true" selection-start-line="282" selection-end-line="282" />
+            <state>
+              <caret lean-forward="true" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/templates/console/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4125">
-              <caret line="275" selection-start-line="275" selection-end-line="275" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jobs.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="jobs.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/console/src/jobs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2520">
-              <caret line="168" selection-start-line="168" selection-end-line="168" />
+            <state relative-caret-position="214">
+              <caret line="61" column="9" selection-start-line="61" selection-start-column="4" selection-end-line="61" selection-end-column="9" />
               <folding>
                 <element signature="e#1#26#0" expanded="true" />
               </folding>
@@ -73,62 +51,68 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="job_creation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/src/job_creation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="account.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/src/account.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="88" column="80" selection-start-line="88" selection-start-column="80" selection-end-line="88" selection-end-column="80" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="authentification.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/src/authentification.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="639">
+              <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="autopilot.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/src/autopilot.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="639">
+              <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="drive.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/console/src/drive.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+            <state relative-caret-position="639">
+              <caret line="87" column="56" lean-forward="true" selection-start-line="87" selection-start-column="56" selection-end-line="87" selection-end-column="56" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/templates/console/home.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="topup.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/templates/console/topup.html">
+      <file leaf-file-name="credits.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/src/credits.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1665">
-              <caret line="111" column="31" lean-forward="true" selection-start-line="111" selection-start-column="31" selection-end-line="111" selection-end-column="31" />
-              <folding>
-                <element signature="e#2908#2914#0" expanded="true" />
-                <element signature="e#2915#2921#0" expanded="true" />
-                <element signature="e#2962#2968#0" expanded="true" />
-                <element signature="e#2969#2975#0" expanded="true" />
-                <element signature="e#2976#2982#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="195">
+              <caret line="19" column="90" selection-start-line="19" selection-start-column="90" selection-end-line="19" selection-end-column="90" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jobs.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/templates/console/jobs.html">
+      <file leaf-file-name="data_folders.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/src/data_folders.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1110">
-              <caret line="74" column="61" selection-start-line="74" selection-start-column="61" selection-end-line="74" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/donkeycar_console/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/console/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="75" selection-start-line="33" selection-start-column="75" selection-end-line="33" selection-end-column="75" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="474">
+              <caret line="179" column="14" lean-forward="true" selection-start-line="179" selection-start-column="14" selection-end-line="179" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -137,8 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>charge</find>
-      <find>form</find>
       <find>stripe</find>
       <find>for</find>
       <find>submit</find>
@@ -158,7 +140,6 @@
       <find>hidden</find>
       <find>&amp;</find>
       <find>request_id</find>
-      <find>update</find>
       <find>if</find>
       <find>list_jobs</find>
       <find>success</find>
@@ -167,6 +148,9 @@
       <find>fail</find>
       <find>timeout</find>
       <find>/br</find>
+      <find>stop</find>
+      <find>aws_ke</find>
+      <find>update</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -188,34 +172,35 @@
         <option value="$PROJECT_DIR$/console/models.py" />
         <option value="$PROJECT_DIR$/console/templates/console/data_folders.html" />
         <option value="$PROJECT_DIR$/console/admin.py" />
-        <option value="$PROJECT_DIR$/console/src/settings.py" />
         <option value="$PROJECT_DIR$/console/src/data_folders.py" />
-        <option value="$PROJECT_DIR$/console/src/authentification.py" />
         <option value="$PROJECT_DIR$/console/views.py" />
-        <option value="$PROJECT_DIR$/console/src/credits.py" />
-        <option value="$PROJECT_DIR$/console/src/autopilot.py" />
         <option value="$PROJECT_DIR$/console/src/drive.py" />
         <option value="$PROJECT_DIR$/console/templates/console/login.html" />
         <option value="$PROJECT_DIR$/donkeycar_console/settings.py" />
         <option value="$PROJECT_DIR$/console/templates/console/github.html" />
         <option value="$PROJECT_DIR$/console/templates/console/credentials.html" />
-        <option value="$PROJECT_DIR$/console/templates/console/local_directory.html" />
         <option value="$PROJECT_DIR$/console/templates/console/controller.html" />
         <option value="$PROJECT_DIR$/console/templates/console/layout.html" />
         <option value="$PROJECT_DIR$/console/templates/console/account.html" />
         <option value="$PROJECT_DIR$/console/templates/console/index.html" />
-        <option value="$PROJECT_DIR$/console/src/account.py" />
         <option value="$PROJECT_DIR$/console/templates/console/jobs.html" />
-        <option value="$PROJECT_DIR$/console/src/jobs.py" />
         <option value="$PROJECT_DIR$/console/urls.py" />
-        <option value="$PROJECT_DIR$/console/src/job_creation.py" />
         <option value="$PROJECT_DIR$/console/templates/console/topup.html" />
+        <option value="$PROJECT_DIR$/console/src/account.py" />
+        <option value="$PROJECT_DIR$/console/src/authentification.py" />
+        <option value="$PROJECT_DIR$/console/src/autopilot.py" />
+        <option value="$PROJECT_DIR$/console/src/credits.py" />
+        <option value="$PROJECT_DIR$/console/src/job_creation.py" />
+        <option value="$PROJECT_DIR$/console/src/jobs.py" />
+        <option value="$PROJECT_DIR$/console/src/settings.py" />
+        <option value="$PROJECT_DIR$/console/templates/console/local_directory.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="301" />
     <option name="y" value="23" />
-    <option name="width" value="1440" />
+    <option name="width" value="2061" />
     <option name="height" value="817" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -310,12 +295,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="817" extended-state="0" />
+    <frame x="301" y="23" width="2061" height="817" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.39097223" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11062591" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" visible="true" weight="0.0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.0" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
@@ -324,11 +309,22 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.39097223" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" visible="true" weight="0.0" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.0" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -340,7 +336,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/console/templates/console/data_folders.html" />
     <entry file="file://$PROJECT_DIR$/requirements.txt" />
     <entry file="file://$PROJECT_DIR$/donkeycar_console/settings.py" />
     <entry file="file://$PROJECT_DIR$/donkeycar_console/urls.py" />
@@ -356,7 +351,13 @@
     <entry file="file://$PROJECT_DIR$/console/static/css/form.css" />
     <entry file="file://$PROJECT_DIR$/console/static/bower_components/bootstrap/bower.json" />
     <entry file="file://$PROJECT_DIR$/console/static/js/app.config.js" />
-    <entry file="file://$PROJECT_DIR$/console/migrations/0001_initial.py" />
+    <entry file="file://$PROJECT_DIR$/console/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="27" column="18" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/console/migrations/__init__.py" />
     <entry file="file://$PROJECT_DIR$/console/apps.py" />
     <entry file="file://$PROJECT_DIR$/LICENSE" />
@@ -364,38 +365,20 @@
     <entry file="file://$PROJECT_DIR$/README.md" />
     <entry file="file://$PROJECT_DIR$/console/admin.py" />
     <entry file="file://$PROJECT_DIR$/console/models.py" />
-    <entry file="file://$PROJECT_DIR$/console/src/data_folders.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1980">
-          <caret line="143" column="46" selection-start-line="143" selection-start-column="46" selection-end-line="143" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/src/authentification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="34" column="35" lean-forward="true" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/donkeycar_console/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="65" selection-start-line="27" selection-start-column="65" selection-end-line="27" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/src/autopilot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="81" column="13" lean-forward="true" selection-start-line="81" selection-start-column="13" selection-end-line="98" selection-end-column="33" />
+        <state relative-caret-position="274">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/console/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="61" selection-start-line="26" selection-start-column="61" selection-end-line="26" selection-end-column="61" />
+        <state relative-caret-position="613">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -404,13 +387,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="478">
           <caret line="232" column="20" selection-start-line="232" selection-start-column="20" selection-end-line="232" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="235" selection-start-line="235" selection-end-line="235" />
         </state>
       </provider>
     </entry>
@@ -428,13 +404,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/src/credits.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="24" column="8" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/console/templates/console/controller.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="640">
@@ -442,20 +411,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/src/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="83" column="41" selection-start-line="83" selection-start-column="41" selection-end-line="83" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/console/templates/console/create_job.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="87" column="23" lean-forward="true" selection-start-line="87" selection-start-column="23" selection-end-line="87" selection-end-column="23" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#section#2;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="19">
+          <caret line="3" column="39" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -463,30 +422,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="223">
           <caret line="92" column="82" selection-start-line="92" selection-start-column="53" selection-end-line="92" selection-end-column="82" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#2648#2654#0" expanded="true" />
-            <element signature="e#2654#2660#0" expanded="true" />
-            <element signature="e#2660#2666#0" expanded="true" />
-            <element signature="e#2666#2672#0" expanded="true" />
-            <element signature="e#2672#2678#0" expanded="true" />
-            <element signature="e#2678#2684#0" expanded="true" />
-            <element signature="e#2684#2690#0" expanded="true" />
-            <element signature="e#2690#2696#0" expanded="true" />
-            <element signature="e#2696#2702#0" expanded="true" />
-            <element signature="e#2702#2708#0" expanded="true" />
-            <element signature="e#2708#2714#0" expanded="true" />
-            <element signature="e#2714#2720#0" expanded="true" />
-            <element signature="e#2720#2726#0" expanded="true" />
-            <element signature="e#2726#2732#0" expanded="true" />
-            <element signature="e#2732#2738#0" expanded="true" />
-            <element signature="e#2738#2744#0" expanded="true" />
-            <element signature="e#2744#2750#0" expanded="true" />
-            <element signature="e#2750#2756#0" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -509,59 +444,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/console/templates/console/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4125">
-          <caret line="275" selection-start-line="275" selection-end-line="275" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/src/account.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1380">
-          <caret line="92" column="14" selection-start-line="92" selection-start-column="14" selection-end-line="92" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="313">
+          <caret line="60" column="1" selection-start-line="60" selection-start-column="1" selection-end-line="60" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/console/templates/console/jobs.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1110">
-          <caret line="74" column="61" selection-start-line="74" selection-start-column="61" selection-end-line="74" selection-end-column="61" />
+        <state relative-caret-position="448">
+          <caret line="86" column="44" selection-start-line="86" selection-start-column="44" selection-end-line="86" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/donkeycar_console/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/console/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="75" selection-start-line="33" selection-start-column="75" selection-end-line="33" selection-end-column="75" />
+        <state relative-caret-position="585">
+          <caret line="39" column="45" selection-start-line="39" selection-start-column="45" selection-end-line="39" selection-end-column="45" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/src/jobs.py">
+    <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2520">
-          <caret line="168" selection-start-line="168" selection-end-line="168" />
-          <folding>
-            <element signature="e#1#26#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="210">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/console/templates/console/topup.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1665">
-          <caret line="111" column="31" lean-forward="true" selection-start-line="111" selection-start-column="31" selection-end-line="111" selection-end-column="31" />
+        <state relative-caret-position="232">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
           <folding>
             <element signature="e#2908#2914#0" expanded="true" />
             <element signature="e#2915#2921#0" expanded="true" />
@@ -572,17 +494,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/console/src/account.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="88" column="80" selection-start-line="88" selection-start-column="80" selection-end-line="88" selection-end-column="80" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/src/authentification.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="639">
+          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/src/autopilot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="639">
+          <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/src/credits.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="19" column="90" selection-start-line="19" selection-start-column="90" selection-end-line="19" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/src/data_folders.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="179" column="14" lean-forward="true" selection-start-line="179" selection-start-column="14" selection-end-line="179" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/console/src/drive.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        <state relative-caret-position="639">
+          <caret line="87" column="56" lean-forward="true" selection-start-line="87" selection-start-column="56" selection-end-line="87" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/src/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/templates/console/local_directory.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/console/src/job_creation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="282" lean-forward="true" selection-start-line="282" selection-end-line="282" />
+        <state relative-caret-position="240">
+          <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/src/jobs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="61" column="9" selection-start-line="61" selection-start-column="4" selection-end-line="61" selection-end-column="9" />
+          <folding>
+            <element signature="e#1#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

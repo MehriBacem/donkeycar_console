@@ -137,7 +137,7 @@ def create_job(request):
 
                     s3_data = {"name": tarfile_name}
 
-                    url = "https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/upload/to/S3"
+                    url = "https://j9p3fxvn66.execute-api.us-east-1.amazonaws.com/dev/upload/to/S3"
                     headers = {'Content-type': 'application/json'}
                     response = requests.post(url, data=json.dumps(s3_data), headers=headers)
                     current_path = os.popen('pwd').read()
@@ -157,7 +157,7 @@ def create_job(request):
                                 'github_repo': github_repo.name, 'termination_time': termination_time,
                                 'model_name': model_name, 'availability_zone': availability_zone[0], 'job_name':job_name,
                                 'instance_type': instance_type, 'request_time': request_time}
-                        url = "https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/launchEC2"
+                        url = "https://j9p3fxvn66.execute-api.us-east-1.amazonaws.com/dev/launchEC2"
                         headers = {'Content-type': 'application/json'}
                         response = requests.post(url, data=json.dumps(data), headers=headers)
                         print(response.json())
@@ -285,7 +285,7 @@ def create_job(request):
 def display_availability(request,name):
        # response = check_availability_zone(name)
        data = {'instance_type': name}
-       url = "https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/availabilityzone"
+       url = "https://j9p3fxvn66.execute-api.us-east-1.amazonaws.com/dev/availabilityzone"
        headers = {'Content-type': 'application/json'}
        response = requests.post(url, data=json.dumps(data), headers=headers)
 

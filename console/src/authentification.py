@@ -8,7 +8,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 
 def login(request,accessToken):
     data = {'accessToken': accessToken}
-    url = "https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/user/login"
+    url = "https://j9p3fxvn66.execute-api.us-east-1.amazonaws.com/dev/user/login"
     headers = {'Content-type': 'application/json'}
     response = requests.post(url, data=json.dumps(data), headers=headers)
     try:

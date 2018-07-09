@@ -62,7 +62,7 @@ def add_remark(request):
 def verify_logs(state,id,facebook_id):
 
      data = {'id': id,'facebook_id':facebook_id }
-     url = "https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/logs/verify"
+     url = "https://j9p3fxvn66.execute-api.us-east-1.amazonaws.com/dev/logs/verify"
      headers = {'Content-type': 'application/json'}
      response = requests.post(url, data=json.dumps(data), headers=headers)
 
@@ -85,7 +85,7 @@ def cancel_request(request):
        job = Jobs.objects.get(id=id)
        instance_id =job.instance_id
        data = {'instance_id': instance_id}
-       url = "https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/request/cancel"
+       url = "https://j9p3fxvn66.execute-api.us-east-1.amazonaws.com/dev/request/cancel"
        headers = {'Content-type': 'application/json'}
        response = requests.post(url, data=json.dumps(data), headers=headers)
        if json.loads(response.json()['body'])['result'] == "success":
@@ -113,7 +113,7 @@ def update_status_by_id(request):
         else:
                     model_name = facebook_id+'_job_' + str(job.id)
         data = {'model_name': model_name,'facebook_id':facebook_id}
-        url = "https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/job/update"
+        url = "https://j9p3fxvn66.execute-api.us-east-1.amazonaws.com/dev/job/update"
         headers = {'Content-type': 'application/json'}
         response = requests.post(url, data=json.dumps(data), headers=headers)
 
@@ -152,7 +152,7 @@ def copy_local(request):
            model_name = 'job_' + str(id)
        s3_data = {"name" : "models/"+model_name}
 
-       url = "https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/download/from/S3"
+       url = "https://j9p3fxvn66.execute-api.us-east-1.amazonaws.com/dev/download/from/S3"
        headers = {'Content-type': 'application/json'}
        response = requests.post(url, data=json.dumps(s3_data), headers=headers)
 

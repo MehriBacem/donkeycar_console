@@ -17,7 +17,7 @@ def enquire_credits(request):
             print("doesn't exist")
             user = None
         data = {'UserID': request.session['userid']}
-        url1 = 'https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/credits/enquire'
+        url1 = 'https://j9p3fxvn66.execute-api.us-east-1.amazonaws.com/dev/credits/enquire'
         headers1 = {'Authorization': user.JWT_token}
 
         response1 = requests.post(url1,data=json.dumps(data), headers=headers1)

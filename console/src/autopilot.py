@@ -55,7 +55,7 @@ def autopilot(request):
 
         s3_data = {"name": "models/" + model_name}
 
-        url = "https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/download/from/S3"
+        url = "https://j9p3fxvn66.execute-api.us-east-1.amazonaws.com/dev/download/from/S3"
         headers = {'Content-type': 'application/json'}
         response = requests.post(url, data=json.dumps(s3_data), headers=headers)
 

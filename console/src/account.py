@@ -44,7 +44,7 @@ def numbers_to_strings(argument):
 
 def account(request):
     data = {'UserID':request.session['userid']}
-    url1 = 'https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/transactions/list'
+    url1 = 'https://j9p3fxvn66.execute-api.us-east-1.amazonaws.com/dev/transactions/list'
     response1 = requests.post(url1, data=json.dumps(data))
     print(response1.json())
     context = {
@@ -86,7 +86,7 @@ def charge(request):
         print("credits",credits)
         token = request.POST.get('stripeToken', '')
         data = {'token': token,'credits':credits,'cents': val,'UserID':request.session['userid']}
-        url1 = 'https://esx3owu58f.execute-api.us-east-1.amazonaws.com/dev/topup'
+        url1 = 'https://j9p3fxvn66.execute-api.us-east-1.amazonaws.com/dev/topup'
         response1 = requests.post(url1,data=json.dumps(data))
         print(response1.json())
 
