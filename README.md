@@ -51,6 +51,7 @@ Thanks to the Donkey Car Console, you  will have a user interface deployed on yo
       pi@d2:~$ sudo reboot
       
 - open the console with "hostname:8000" (e.g  d2.local:8000). You will see something like this :
+
 ![alt text](docs/view.png)
 
 
