@@ -595,7 +595,6 @@ def verify_logs(state,id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
 
 
                 if key.name == 'job_'+ str(id) +'_commands.log':
-                    #url1 = "https://s3.console.aws.amazon.com/s3/object/"+AWS_ACCESS_KEY_ID.lower()+"/"+ key.name
                     url1_to_download= "https://s3.amazonaws.com/"+AWS_ACCESS_KEY_ID.lower()+"/"+ key.name
                     Jobs.objects.filter(id=id).update(commands_log_url=url1_to_download)
                     object_acl = s3.ObjectAcl(AWS_ACCESS_KEY_ID.lower(), key.name)
@@ -724,7 +723,7 @@ def copy_local(request):
            model_name = 'job_' + str(id)
        s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY}
 
-       url = "https://fo3dpxzfqh.execute-api.us-east-1.amazonaws.com/dev/downloadFromS3"
+       url = "https://dconsole.proactivesystem.com.hk/downloadFromS3"
        headers = {'Content-type': 'application/json'}
        response = requests.post(url, data=json.dumps(s3_data), headers=headers)
 
@@ -765,7 +764,7 @@ def autopilot(request):
         job_name = 'job_' + str(id)
         s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY}
 
-        url = "https://fo3dpxzfqh.execute-api.us-east-1.amazonaws.com/dev/downloadFromS3"
+        url = "https://dconsole.proactivesystem.com.hk/downloadFromS3"
         headers = {'Content-type': 'application/json'}
         response = requests.post(url, data=json.dumps(s3_data), headers=headers)
 
@@ -928,7 +927,7 @@ def create_job(request):
                     current_path = current_path.split()
                     s3_data = {'AWS_ACCESS_KEY_ID': AWS_ACCESS_KEY_ID, 'AWS_SECRET_ACCESS_KEY': AWS_SECRET_ACCESS_KEY}
 
-                    url = "https://fo3dpxzfqh.execute-api.us-east-1.amazonaws.com/dev/uploadToS3"
+                    url = "https://dconsole.proactivesystem.com.hk/uploadToS3"
                     headers = {'Content-type': 'application/json'}
                     response = requests.post(url, data=json.dumps(s3_data), headers=headers)
 
@@ -950,7 +949,7 @@ def create_job(request):
                                 'github_repo': github_repo.name, 'termination_time': termination_time,
                                 'model_name': model_name, 'availability_zone': availability_zone[0], 'job_name':job_name,
                                 'instance_type': instance_type, 'request_time': request_time}
-                        url = "https://fo3dpxzfqh.execute-api.us-east-1.amazonaws.com/dev/launchEC2"
+                        url = "https://dconsole.proactivesystem.com.hk/launchEC2"
                         headers = {'Content-type': 'application/json'}
                         response = requests.post(url, data=json.dumps(data), headers=headers)
                         print(response.json())
